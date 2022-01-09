@@ -2,7 +2,7 @@
   class Usuarios {
 
     
-    // FUNÇÃO PARA CADASTRAR USUARIO NOVO
+    // #FUNÇAO PARA CADASTRAR USUARIO NOVO
     public function cadastrar($nome, $email, $senha, $telefone) {
       global $pdo;
       $sql = $pdo->prepare("SELECT id from usuarios where email = :email");
@@ -27,7 +27,7 @@
 
     }
 
-    // FUNÇÃO CARA EFETUAR O LOGIN
+    // #FUNÇAO CARA EFETUAR O LOGIN
 
     public function login ($email, $senha) {
       global $pdo;
@@ -47,6 +47,17 @@
       }
 
     }
+
+    // #FUNCAO para calcular os totais de usuarios cadastrados na aplicação
+    public function getTotalUsuarios() {
+      global $pdo;
+
+      $sql = $pdo->query("SELECT count(*) as c from usuarios");
+      $row = $sql->fetch();
+
+      return $row['c'];        
+    }
+ 
 
          
   }

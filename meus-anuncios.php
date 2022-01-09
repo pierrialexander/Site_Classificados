@@ -42,7 +42,7 @@
           <?php endif; ?>
         </td>
         <td><?php echo $anuncio['titulo']; ?></td>
-        <td><?php echo number_format($anuncio['valor'], 2); ?></td>
+        <td>R$ <?php echo number_format($anuncio['valor'], 2); ?></td>
         <td>
           <a class="btn btn-primary" href="editar-anuncio.php?id=<?php echo $anuncio['id']; ?>">Editar</a>
           

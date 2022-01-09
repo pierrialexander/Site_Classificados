@@ -2,6 +2,30 @@
 
   class Anuncios{
 
+    // #FUNCAO para exibir os ultimos anuncios do site, na homepage.
+    public function getUltimosAnuncios($page, $perpage) {
+      global $pdo;
+
+      $offset = ($page - 1) * $perpage;
+
+      $array = [];
+      $sql = $pdo->prepare("SELECT 
+          *, 
+          (select anuncios_imagens.url_img from anuncios_imagens where 
+          anuncios_imagens.id_anuncio = anuncios.id limit 1) as url_img,
+          (select categorias.nome from categorias where 
+          categorias.id = anuncios.id_categoria) as categoria
+          from anuncios order by id desc limit $offset, $perpage");
+      $sql->execute();
+
+      if($sql->rowCount() > 0) {
+        $array = $sql->fetchAll();
+      }
+
+      return $array;
+    }
+
+    // #FUNCAO para selecionar anuncios por usuario.
     public function getMeusAnuncios() {
       global $pdo;
       $array = [];
@@ -21,6 +45,7 @@
       return $array;
     }
 
+    // #FUNCAO para buscar dados de um anuncio e preencher no formulario para edição
     public function getAnuncio($id){
       global $pdo;
       $array = [];
@@ -46,7 +71,7 @@
       return $array;
     }
 
-
+    // #FUNCAO para salvar anuncio no banco de dados
     public function addAnuncio($titulo, $categoria, $valor, $descricao, $estado) {
       global $pdo;
 
@@ -63,6 +88,7 @@
         return true;
     }
 
+    // #FUNCAO para editar anuncio já existente no banco de dados e incluir fotos
     public function editAnuncio($titulo, $categoria, $valor, $descricao, $estado, $fotos, $id) {
       global $pdo;
 
@@ -128,6 +154,7 @@
         //return true;
     }
 
+    // #FUNCAO para excluir anuncio
     public function excluirAnuncios($id) {
       global $pdo;
 
@@ -141,6 +168,7 @@
 
     }
 
+    // #FUNCAO para excluir foto do anuncio
     public function excluirFoto($id) {
       global $pdo;
 
@@ -162,6 +190,16 @@
       $sql->execute();
 
       return $id_anuncio;
+    }
+
+    // #FUNCAO para calcualr o total de anuncios existentes na aplicação
+    public function getTotalAnuncios() {
+      global $pdo;
+
+      $sql = $pdo->query("SELECT count(*) as c from anuncios");
+      $row = $sql->fetch();
+
+      return $row['c'];        
     }
 
     
