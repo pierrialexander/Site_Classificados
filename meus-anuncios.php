@@ -35,17 +35,23 @@
 
       <tr>
         <td>
-          <?php if(!empty($anuncio['url'])): ?>
-            <img src="assets/images/anuncios/<?php $anuncio['url']; ?>" height="50" border="0"/>
+          <?php if(!empty($anuncio['url_img'])): ?>
+            <img src="assets/images/anuncios/<?php echo $anuncio['url_img']; ?>" height="50"/>
           <?php else: ?>
-            <img src="assets/images/default.jpg" height="50" border="0"/>
+            <img src="assets/images/default.jpg" height="50"/>
           <?php endif; ?>
         </td>
         <td><?php echo $anuncio['titulo']; ?></td>
         <td><?php echo number_format($anuncio['valor'], 2); ?></td>
         <td>
-          <a class="btn btn-primary"href="editar-anuncio.php?id=<?php echo $anuncio['id']; ?>">Editar</a>
-          <a class="btn btn-warning"href="excluir-anuncio.php?id=<?php echo $anuncio['id']; ?>">Excluir</a>
+          <a class="btn btn-primary" href="editar-anuncio.php?id=<?php echo $anuncio['id']; ?>">Editar</a>
+          
+          <form action="excluir-anuncio.php?id=<?php echo $anuncio['id']; ?>" method="POST" style="display: inline;" onsubmit="confirmarExclusao(event, this)">
+            <input type="hidden" name="id" value="<?php echo $anuncio['id']; ?>">
+            <button class="btn btn-warning">Excluir</button>
+          </form>
+          
+        
         </td>
       </tr>
 
@@ -54,5 +60,16 @@
 
   </table>
 </div>
+
+<!--CONFIRMAR A EXCLUSÃO DO ANUNCIO-->
+<script type="text/javascript">
+  function confirmarExclusao(event, form) {
+    event.preventDefault();
+    let decision = confirm("Confirmar a exclusão do anúncio?")
+    if (decision) {
+      form.submit();
+    }
+  }
+</script>
 
 <?php require_once 'pages/footer.php'; ?>
