@@ -50,7 +50,13 @@
       global $pdo;
       $array = [];
 
-      $sql = $pdo->prepare("SELECT * from anuncios where id = :id");
+      $sql = $pdo->prepare("SELECT 
+      *,
+      (select categorias.nome from categorias where 
+          categorias.id = anuncios.id_categoria) as categoria, 
+      (select usuarios.telefone from usuarios where 
+          usuarios.id = anuncios.id_usuario) as telefone
+          from anuncios where id = :id");
       $sql->bindValue(":id", $id);
       $sql->execute();
 
