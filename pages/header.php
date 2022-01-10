@@ -22,7 +22,7 @@
 
           <?php if (isset($_SESSION['clogin']) && !empty($_SESSION['clogin'])): ?>
               <li class="nav-item">
-                <a href="#" class="nav-link active text-light font-weight-bold">Olá, que bom lhe ver <?php echo $_SESSION["cNome"] ?></a>
+                <a href="#" class="nav-link active text-light font-weight-bold">Olá, que bom lhe ver, <?php echo $_SESSION["cNome"] ?></a>
               </li>
               <li class="nav-item">
                 <a href="meus-anuncios.php" class="nav-link active text-light font-weight-bold">Meus Anúncios</a>

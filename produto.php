@@ -31,7 +31,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
           
 
           <!--INICIO DO CAROUSEL-->
-            <div class="carousel slide" data-ride="carousel" id="meuCarousel">
+            <div class="carousel slide" data-ride="carousel" data-interval="3000" id="meuCarousel">
 
               <!-- Indicators -->
               <ul class="carousel-indicators">
